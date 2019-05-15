@@ -80,23 +80,30 @@ let chosenYAxis = "income"
       let labelX  = ""
       let labelY  = ""
       if (chosenXAxis === "obesity") {
-          labelX = "Obesity:"
+          labelX = "Obese (%)"
       }
       else {
-          labelX = "smokes"
+          labelX = "Smokes (%)"
       }
       if (chosenYAxis === "income") {
-          labelY = "Income:"
+          labelY = "Household Income (Median)"
       }
       else {
-          labelY = "Healthcare"
+          labelY = "Lacks Healthcare (%)"
       }
 
       let toolTip = d3.tip()
           .attr("class", "tooltip")
-          .offset([100, 0])
+          .style("background", "#232F34")
+          .style("color", "#FFFFFF")
+          .style("padding", "2px")
+          .style("border", "0px")
+          .style("border-radius", "8px")
+          .style("font", "12px sans-serif")
+          .style("text-align", "center")
+          .style("position", "absolute")
           .html(function(d) {
-              return (`${d.state}<br>${labelY} ${d[chosenYAxis]}<br>${labelX} ${d[chosenXAxis]}`)
+              return (`${d.state}<br>${labelY}: ${d[chosenYAxis]}<br>${labelX}: ${d[chosenXAxis]}`)
           })
 
       circlesGroup.call(toolTip)
@@ -164,13 +171,13 @@ let chosenYAxis = "income"
         .attr("y", 20)
         .attr("value", "obesity") // value to grab for event listener
         .classed("active", true)
-        .text("Obesity")
+        .text("Obese (%)")
     let smokesLabel = labelsGroup.append("text")
         .attr("x", 0)
         .attr("y", 40)
         .attr("value", "smokes") // value to grab for event listener
         .classed("inactive", true)
-        .text("Smokes")
+        .text("Smokes (%)")
 
     // Create group for  2 y-axis labels
     let labelsGroupY = chartGroup.append("g")
@@ -181,13 +188,13 @@ let chosenYAxis = "income"
         .attr("y", -60)
         .attr("value", "income") // value to grab for event listener
         .classed("active", true)
-        .text("Income")
+        .text("Household Income (Median)")
     let healthcareLabel = labelsGroupY.append("text")
         .attr("x", 0 - (height / 2))
         .attr("y", -80)
         .attr("value", "healthcare") // value to grab for event listener
         .classed("inactive", true)
-        .text("Healthcare")
+        .text("Lacks Healthcare (%)")
 
     //Add State Abbr labels to SVG nodes
     chartGroup.append("text")
