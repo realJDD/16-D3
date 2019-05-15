@@ -27,22 +27,16 @@ let chosenYAxis = "income"
 
   // function used for updating x-scale let upon click on axis label
   function xScale(scatterData, chosenXAxis) {
-    // create scales
     let xLinearScale = d3.scaleLinear()
-      .domain([d3.min(scatterData, d => d[chosenXAxis]),
-        d3.max(scatterData, d => d[chosenXAxis])
-      ])
+      .domain([d3.min(scatterData, d => d[chosenXAxis]),  d3.max(scatterData, d => d[chosenXAxis])])
       .range([0, width])
       return xLinearScale
   }
 
   // function used for updating y-scale let upon click on axis label
   function yScale(scatterData, chosenYAxis) {
-    // create scales
     let yLinearScale = d3.scaleLinear()
-      .domain([d3.min(scatterData, d => d[chosenYAxis]),
-        d3.max(scatterData, d => d[chosenYAxis])
-      ])
+      .domain([d3.min(scatterData, d => d[chosenYAxis]), d3.max(scatterData, d => d[chosenYAxis])])
       .range([height, 0])
       return yLinearScale
   }
@@ -65,17 +59,15 @@ let chosenYAxis = "income"
     return yAxis
   }
 
-  // function used for updating circles group with a transition to
-  // new circles
-  function renderCircles(circlesGroup, newXScale, chosenXaxis) {
+  // function used for updating circles group  (from new selected X axis) with a transition to new circles
+  function renderCirclesX(circlesGroup, newXScale, chosenXaxis) {
     circlesGroup.transition()
       .duration(1000)
       .attr("cx", d => newXScale(d[chosenXAxis]))
     return circlesGroup
   }
 
-  // function used for updating Y circles group with a transition to
-  // new circles
+  // function used for updating Y circles group (from new selected Y axis) with a transition to new circles
   function renderCirclesY(circlesGroup, newYScale, chosenYaxis) {
     circlesGroup.transition()
       .duration(1000)
@@ -230,7 +222,7 @@ let chosenYAxis = "income"
             xAxis = renderAxes(xLinearScale, xAxis)
 
             // updates circles with new x values
-            circlesGroup = renderCircles(circlesGroup, xLinearScale, chosenXAxis)
+            circlesGroup = renderCirclesX(circlesGroup, xLinearScale, chosenXAxis)
 
             // updates tooltips with new info
             circlesGroup = updateToolTip(chosenXAxis, chosenXAxis, circlesGroup)
