@@ -122,7 +122,7 @@ let chosenYAxis = "income"
 
 // Retrieve data from the CSV file and execute everything below
 (async function(){
-    let scatterData = await d3.csv("/assets/data/data.csv")
+    let scatterData = await d3.csv("/data/data.csv")
 
     // Parse Data/Cast as numbers
     scatterData.forEach(function(data) {
